@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <form id="fileForm">
+        <h3>파일 업로드</h3>
+        <input type="file" name="file"/>
+    </form>
+    <button onclick="save()">전송</button>
+</body>
+<script>
+    function save(){
+        const form = new FormData($('#fileForm')[0]);
+        $.ajax({
+            url:'/upload',
+            type:'POST',
+            enctype:'multipart/form-data',
+            processData:false,
+            contentType:false,
+            data:form,
+            dataType:'JSON',
+            success:function(data){
+                console.log(data);
+            },error:function(err){
+                console.log(err);
+            }
+        });
+    }
+</script>
+</html>
