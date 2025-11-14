@@ -1,0 +1,7 @@
+# 필요한 라이브러리 기록
+# pip install -r requirements.txt
+
+uvicorn
+fastapi
+pandas
+matplotlib
