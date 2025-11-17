@@ -10,15 +10,18 @@
     <body>
         <h1>기본 그래프 보기</h1>
         <hr/>
-        <button onclick="showFig('image')">이미지로 보기</button>
-        <button onclick="showFig('html')">HTML로 보기</button>
+        <button onclick="showFig('showFig','image')">이미지로 보기</button>
+        <button onclick="showFig('showFig','html')">HTML로 보기</button>
+        <br/>
+        <button onclick="showFig('sub_plot','image')">subplot 이미지로 보기</button>
+        <button onclick="showFig('sub_plot','html')">subplot HTML로 보기</button>
         <div id="area"></div>
     </body>
     <script>
-        function showFig(type){
+        function showFig(url,type){
             $.ajax({
                 type:'GET',
-                url:'/showFig?type='+type,
+                url:'/'+url+'?type='+type,
                 dataType:'html',
                 success:function(obj){
                     console.log(obj);

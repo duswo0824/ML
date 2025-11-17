@@ -53,6 +53,34 @@ def show_fig(type: str):
     # 4. 반환
     return HTMLResponse(content=fig)
 
+@app.get("/sub_plot")
+def sub_plot(type: str):
+    graph = plt.figure()
+    fig = ''
+
+    import numpy as np
+    x = np.linspace(-2,2,30)
+
+    plt.subplot(2,2,1)
+    plt.plot(x,x)
+    plt.subplot(2, 2, 2)
+    plt.plot(x, x**2)
+    plt.subplot(2, 2, 3)
+    plt.plot(x, x**3)
+    plt.subplot(2, 2, 4)
+    plt.plot(x, x**4)
+    plt.subplots_adjust(wspace=0.2, hspace=0.3)
+
+    # plt.show() 여기선 사용 X
+    if type == 'image':
+        path = 'fig/subplot.png'
+        graph.savefig(path, transparent=True)
+        fig = f'<img src="/{path}"/>'
+    else: # html
+        fig = mpld3.fig_to_html(graph)
+
+    return HTMLResponse(content=fig)
+
 def set_font(plt):
     font_pth = 'C:/Windows/Fonts/malgun.ttf'
     # 해당 경로의 폰트파일을 이용해 폰트 속성 추출
