@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Cacading Style Sheet</title>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h1>기본 그래프 보기</h1>
+        <hr/>
+        <button onclick="showFig('image')">이미지로 보기</button>
+        <button onclick="showFig('html')">HTML로 보기</button>
+        <div id="area"></div>
+    </body>
+    <script>
+        function showFig(type){
+            $.ajax({
+                type:'GET',
+                url:'/showFig?type='+type,
+                dataType:'html',
+                success:function(obj){
+                    console.log(obj);
+                    $('#area').html(obj);
+                },error:function(err){
+                    console.log(err);
+                }
+            });
+        }
+    </script>
+</html>

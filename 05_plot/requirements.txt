@@ -1,0 +1,11 @@
+# 필요한 라이브러리 기록
+# pip install -r requirements.txt
+
+uvicorn
+fastapi
+pandas
+pymysql
+sqlalchemy
+matplotlib
+# plot 으로 그린 그래프를 html로 변환 라이브러리
+mpld3
