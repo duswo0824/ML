@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>06_wc</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    </head>
+
+    <body>
+        <form id="fileForm">
+            <input type="file" name="file" />
+            <!-- button 태그는 버튼+서브밋 이기 때문에 순수 버튼만 활용하려면 아래처럼 설정(form태그 안에서) -->
+            <button type="button" onclick="save()">업로드</button>
+        </form>
+    </body>
+    <script>
+        function save(){
+
+            let form = new FormData($('#fileForm')[0]);
+            // form.append('file',$('input[type="file"]')[0]) // append에는 키와 값이 들어가야함
+
+            $.ajax({
+                url: '/upload',
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                data:form,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                }, 
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
+</html>
