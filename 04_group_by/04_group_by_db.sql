@@ -19,13 +19,9 @@ select * from titles limit 5; -- 사원의 직책
 
 
 -- emp_no, dept_no, dept_name, name, hire_date, salary
-
 select e.emp_no, concat(e.first_name,e.last_name) as name, e.hire_date  from employees e;
-
 select de.emp_no, de.dept_no from dept_emp de where de.to_date = '9999-01-01';
-
 select d.dept_no, d.dept_name from departments d;
-
 select s.emp_no, s.salary from salaries s where s.to_date = '9999-01-01';
 
 -- join me!!
@@ -53,6 +49,33 @@ from (select emp_no from dept_emp_latest_date where to_date = '9999-01-01') ce -
 	join current_dept_emp cde on ce.emp_no = cde.emp_no 
 	join salaries s on ce.emp_no = s.emp_no 
 where s.to_date = '9999-01-01';
+
+-- team 별 연도별 salary 평균
+select 
+	ce.emp_no
+	,(select dept_name from departments d where d.dept_no = cde.dept_no) as team_name
+	,concat(e.first_name,',',e.last_name) as name
+	,year(s.from_date) as from_year 
+	,s.salary
+from (select emp_no from dept_emp_latest_date where to_date = '9999-01-01') ce -- latest(최근) 근속에 관련된 내용
+	join employees e on ce.emp_no = e.emp_no
+	join current_dept_emp cde on ce.emp_no = cde.emp_no 
+	join salaries s on ce.emp_no = s.emp_no;
+
+-- 사원번호 10001 의 연도별 급여 변화
+select 
+	year(from_date)as from_year, salary 
+from salaries where emp_no = 10001 order by from_year;
+
+
+
+
+
+
+
+
+
+
 
 
 
