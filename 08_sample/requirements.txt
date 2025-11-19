@@ -1,0 +1,18 @@
+# pip install -r requirements.txt
+# server
+fastapi
+uvicorn
+# DB
+pymysql
+sqlalchemy
+# upload
+python-multipart
+# muchine learning
+pandas
+scikit-learn
+#korean
+konlpy # 한국어 명사추출기
+# scrawling
+# beautifulsoup
+# xlsx read
+openpyxl
