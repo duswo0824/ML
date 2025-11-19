@@ -59,17 +59,20 @@ def learn():
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=777, shuffle=True)
 
     model_list = [] # 모델만 담는다.
-    score_dict = {} # 모델명:점수
+    model_dict = {} # 모델명:점수
 
     for i,model in enumerate([model1, model2]):
         model.fit(x_train, y_train)
         score = model.score(x_test, y_test)
         # 스코어 확인
-        logger.info(f'model_{i + 1} : {score}')  # i : 0번 인덱스부터 시작
+        logger.info(f'model_{i} : {score}')  # i : 0번 인덱스부터 시작
         # model_list에 model을 넣고
         model_list.append(model)
+        model_dict[f'model_{i}'] = score # ← 여기서 누적 저장 O (정답)
+        print(f'score: {score}')
+
         # score_dict에 model_{i+1} : {score} 을 넣는다.
-        model_dict = {f'model_{i}' : score}
+        # model_dict = {f'model_{i}' : score} # 덮어쓰기가된다?
 
     # 6. 최고 점수 확인 _ 높은 점수를 받은 모델!
     # model_dict에서 최고 값을 가지고 있는 키를 확인
