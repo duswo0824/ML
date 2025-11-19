@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    </head>
+    <style>
+        button{
+            margin: 5px;
+            display: block;
+        }
+        textarea{
+            resize: none;
+            width: 500px;
+            height: 250px;
+        }
+    </style>
+    <body>
+        <button onclick="learn()">학습시작</button>
+        <hr/>
+        <div>
+            <textarea id="news"></textarea>
+            <button onclick="predict()">전송</button>
+        </div>
+    </body>
+    <script>
+        function predict(){
+            $.ajax({
+                url:'/predict',
+                type:'POST',
+                contentType:'application/json',
+                data:JSON.stringify({'news':$('#news').val()}),
+                dataType:'JSON',
+                success: function (data) {
+                    console.log(data);
+                }, error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function learn(){
+            $('button').attr('disabled',true); // 학습시작하면 전체 버튼 비활성화
+            $.ajax({
+                url:'/learn',
+                type:'get',
+                dataType:'JSON',
+                success:function(data){
+                    console.log(data);
+                    alert('학습점수 : '+data.score);
+                    $('button').attr('disabled',false);
+                },error:function(err){
+                    console.log(err);
+                }
+            });
+        }
+    </script>
+</html>
